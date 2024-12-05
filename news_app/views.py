@@ -37,8 +37,7 @@ class HomePageView(TemplateView):
     template_name = 'news/index.html'
 
     def get(self, request, *args, **kwargs):
-        news_list = News.published.all().order_by('-publish_time')
-        print(news_list)
+        news_list = News.published.all().order_by('-publish_time')[:15]
         categories = Category.objects.all()
         context = {
             'news_list': news_list,
