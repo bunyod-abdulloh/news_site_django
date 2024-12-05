@@ -1,8 +1,9 @@
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 
 from .models import Category, News
+from .forms import ContactForm
 
 
 def news_list(request):
@@ -33,7 +34,13 @@ def homePageView(request):
 
 
 def contactPageView(request):
-    context = {}
+    form = ContactForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return HttpResponse("Bizga habar yuborganingiz uchun tashakkur! Tez orada javob qaytarishga harakat qilamiz!")
+    context = {
+        'form': form,
+    }
     return render(request, 'news/contact.html', context)
 
 # class NewsListView(ListView):
