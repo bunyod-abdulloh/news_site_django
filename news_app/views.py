@@ -41,22 +41,10 @@ class HomePageView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['news_list'] = News.published.all().order_by('-publish_time')[:15]
-        context['categories'] = self.model.objects.all()
+        context['categories'] = Category.objects.all()
         context['mahalliy_news'] = News.published.all().filter(category__name="Mahalliy").order_by('-publish_time')[1:6]
         context['mahalliy_one'] = News.published.filter(category__name="Mahalliy").order_by('-publish_time')[:1]
-
-    def get(self, request, *args, **kwargs):
-        categories = Category.objects.all()
-        news_list =
-        mahalliy_one =
-        mahalliy_news =
-        context = {
-            'news_list': news_list,
-            'categories': categories,
-            "mahalliy_news": mahalliy_news,
-            "mahalliy_one": mahalliy_one,
-        }
-        return self.render_to_response(context)
+        return context
 
 
 class ContactPageView(TemplateView):
