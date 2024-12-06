@@ -37,12 +37,17 @@ class HomePageView(TemplateView):
     template_name = 'news/index.html'
 
     def get(self, request, *args, **kwargs):
-        news_list = News.published.all().order_by('-publish_time')[:15]
         categories = Category.objects.all()
+        news_list = News.published.all().order_by('-publish_time')[:15]
+        mahalliy_one = News.published.filter(category__name="Mahalliy").order_by('-publish_time')[:1]
+        mahalliy_news = News.published.all().filter(category__name="Mahalliy").order_by('-publish_time')[1:6]
         context = {
             'news_list': news_list,
             'categories': categories,
+            "mahalliy_news": mahalliy_news,
+            "mahalliy_one": mahalliy_one,
         }
+        print(mahalliy_one)
         return self.render_to_response(context)
 
 
