@@ -1,6 +1,6 @@
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 
 from .models import Category, News
 from .forms import ContactForm
@@ -33,21 +33,29 @@ def homePageView(request):
     return render(request, 'news/index.html', context)
 
 
-class HomePageView(TemplateView):
+class HomePageView(ListView):
+    model = News
     template_name = 'news/index.html'
+    context_object_name = 'news'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['news_list'] = News.published.all().order_by('-publish_time')[:15]
+        context['categories'] = self.model.objects.all()
+        context['mahalliy_news'] = News.published.all().filter(category__name="Mahalliy").order_by('-publish_time')[1:6]
+        context['mahalliy_one'] = News.published.filter(category__name="Mahalliy").order_by('-publish_time')[:1]
 
     def get(self, request, *args, **kwargs):
         categories = Category.objects.all()
-        news_list = News.published.all().order_by('-publish_time')[:15]
-        mahalliy_one = News.published.filter(category__name="Mahalliy").order_by('-publish_time')[:1]
-        mahalliy_news = News.published.all().filter(category__name="Mahalliy").order_by('-publish_time')[1:6]
+        news_list =
+        mahalliy_one =
+        mahalliy_news =
         context = {
             'news_list': news_list,
             'categories': categories,
             "mahalliy_news": mahalliy_news,
             "mahalliy_one": mahalliy_one,
         }
-        print(mahalliy_one)
         return self.render_to_response(context)
 
 
