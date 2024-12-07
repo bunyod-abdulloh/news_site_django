@@ -3,7 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    {% block title %}{% endblock title %}
+    <title>
+        {% block title %}{% endblock title %}
+    </title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -89,7 +91,8 @@
                     <ul id="ticker01" class="news_sticker">
                         {% for news in latest_news %}
                         <li>
-                            <a href="{% url 'news_detail_page' news.pk %}"><img src="{{ news.image }} " alt="">{{ news.title }}</a>
+                            <a href="{% url 'news_detail_page' news.pk %}"><img src="{{ news.image }} " alt="">
+                                {{ news.title }}</a>
                         </li>
                         {% endfor %}
                     </ul>
