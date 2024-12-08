@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Xorijiy yangiliklar</title>
-</head>
-<body>
+{% extends 'news/base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block title %} Xorij xabarlari {% endblock title %}
+
+{% block content %}
+
+{% for news in xorijiy_news %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="single_post_content">
+                <div class="news-item" style="overflow: hidden; margin-bottom: 20px;">
+                    <a href="{{ news.get_absolute_url }}">
+                        <img src="{{ news.image.url }}" alt="{{ news.title }}"
+                             style="width: 200px; float: left; margin-right: 15px;">
+                        <h2 style="margin: 0; line-height: 1.5; font-size: 25px;">{{ news.title }}</h2>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clearfix har 2 ta elementdan keyin qo‘shiladi -->
+        {% if forloop.counter|divisibleby:2 %}
+        <div class="clearfix"></div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+
+
+{% endblock content %}
+
+
+

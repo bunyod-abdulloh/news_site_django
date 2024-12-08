@@ -75,11 +75,19 @@ class MahalliyNewsView(ListView):
     template_name = "news/mahalliy.html"
     context_object_name = "mahalliy_news"
 
+    def get_queryset(self):
+        news = News.published.all().filter(category__name="Mahalliy")
+        return news
+
 
 class XorijiyNewsView(ListView):
     name = News
     template_name = "news/xorijiy.html"
     context_object_name = "xorijiy_news"
+
+    def get_queryset(self):
+        news = News.published.all().filter(category__name="Xorijiy")
+        return news
 
 
 class TexnoNewsView(ListView):
@@ -87,8 +95,16 @@ class TexnoNewsView(ListView):
     template_name = "news/texno.html"
     context_object_name = "texno_news"
 
+    def get_queryset(self):
+        news = News.published.all().filter(category__name="Texnologiya")
+        return news
+
 
 class SportNewsView(ListView):
     name = News
     template_name = "news/sport.html"
     context_object_name = "sport_news"
+
+    def get_queryset(self):
+        news = News.published.all().filter(category__name="Sport")
+        return news
