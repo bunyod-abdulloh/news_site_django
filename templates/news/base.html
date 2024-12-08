@@ -31,13 +31,13 @@
                 <div class="header_top">
                     <div class="header_top_left">
                         <ul class="top_nav">
-                            <li><a href="{% url 'home_page' %}">Home</a></li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="{% url 'contact_page' %}">Contact</a></li>
+                            <li><a href="{% url 'home_page' %}">Bosh sahifa</a></li>
+                            <li><a href="#">Biz haqimizda</a></li>
+                            <li><a href="{% url 'contact_page' %}">Aloqa</a></li>
                         </ul>
                     </div>
                     <div class="header_top_right">
-                        <p>Payshanba, December 05, 2024</p>
+                        <p>{% now 'd N Y | H:i' %}</p>
                     </div>
                 </div>
             </div>
@@ -65,9 +65,14 @@
                     <li class="active"><a href="{% url 'home_page' %}"><span
                             class="fa fa-home desktop-home"></span><span
                             class="mobile-show">Home</span></a></li>
-                    <li><a href="#">Technology</a></li>
+                    <li><a href="#">Mahalliy</a></li>
+                    <li><a href="#">Xorijiy</a></li>
+                    <li><a href="#">Texnologiya</a></li>
+                    <li><a href="#">Sport</a></li>
+                    <li><a href="{% url 'contact_page' %}">Aloqa</a></li>
+                    <!--
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                            aria-expanded="false">Mobile</a>
+                                            aria-expanded="false">Mobil</a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#">Android</a></li>
                             <li><a href="#">Samsung</a></li>
@@ -80,6 +85,7 @@
                     <li><a href="#">Tablets</a></li>
                     <li><a href="{% url 'contact_page' %}">Contact Us</a></li>
                     <li><a href="pages/404.html">404 Page</a></li>
+                    -->
                 </ul>
             </div>
         </nav>
@@ -91,7 +97,7 @@
                     <ul id="ticker01" class="news_sticker">
                         {% for news in latest_news %}
                         <li>
-                            <a href="{% url 'news_detail_page' news.pk %}"><img src="{{ news.image }} " alt="">
+                            <a href="{{ news.get_absolute_url }}"><img src="{{ news.image }} " alt="">
                                 {{ news.title }}</a>
                         </li>
                         {% endfor %}
@@ -127,7 +133,7 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="footer_widget wow fadeInDown">
-                        <h2>Tag</h2>
+                        <h2>Teglar</h2>
                         <ul class="tag_nav">
                             {% for tag in categories %}
                             <li>
