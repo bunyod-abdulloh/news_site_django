@@ -68,3 +68,27 @@ class ContactPageView(TemplateView):
             'form': form,
         }
         return render(request, self.template_name, context)
+
+
+class MahalliyNewsView(ListView):
+    name = News
+    template_name = "news/mahalliy.html"
+    context_object_name = "mahalliy_news"
+
+
+class XorijiyNewsView(ListView):
+    name = News
+    template_name = "news/xorijiy.html"
+    context_object_name = "xorijiy_news"
+
+
+class TexnoNewsView(ListView):
+    name = News
+    template_name = "news/texno.html"
+    context_object_name = "texno_news"
+
+
+class SportNewsView(ListView):
+    name = News
+    template_name = "news/sport.html"
+    context_object_name = "sport_news"
