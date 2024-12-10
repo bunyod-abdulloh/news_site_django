@@ -1,10 +1,50 @@
-{% extends 'news/base.html %}
+{% extends 'news/base.html' %}
 {% load static %}
 
 {% block title %} Foydalanuvchi sahifasi {% endblock title %}
 
 {% block content %}
 
-<h3>Xush kelibsiz, {{ user.username }}</h3>
+<style>
+    .custom-input {
+        width: 75%; /* Kenglikni o‘rnatadi va Bootstrapning 100% o‘lchamini bekor qiladi */
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="container mt-4">
+    <h3>Xush kelibsiz, {{ user.username }}</h3>
+    <h3 class="mb-4">Sizning ma'lumotlaringiz</h3>
+    <form>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" id="username" class="form-control custom-input" value="{{ user.username }}"
+                       readonly>
+            </div>
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" class="form-control custom-input" value="{{ user.email }}" readonly>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="first_name" class="form-label">Ism</label>
+                <input type="text" id="first_name" class="form-control custom-input" value="{{ user.first_name }}"
+                       readonly>
+            </div>
+            <div class="col-md-6">
+                <label for="last_name" class="form-label">Sharif</label>
+                <input type="text" id="last_name" class="form-control custom-input" value="{{ user.last_name }}"
+                       readonly>
+            </div>
+        </div>
+    </form>
+    <div class="mt-4">
+        <h3>
+            <a href="{% url 'password_change' %}">Parolni o'zgartirish</a>
+        </h3>
+    </div>
+</div>
 
 {% endblock content %}

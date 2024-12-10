@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>
         {% block title %}{% endblock title %}
@@ -47,9 +47,16 @@
                         </ul>
                     </div>
                     <div class="header_top_right">
-                        <p>Salom</p>
+                        {% if request.user.is_authenticated %}
+                        <p>
+                            <a href="{% url 'user_profile' %}" style="color:yellow">My profile</a>
+                        </p>
+                        {% else %}
+                        <p>
+                            <a href="{% url 'login' %}" style="color:yellow">Login</a>
+                        </p>
+                        {% endif %}
                         <p>{% now 'd N Y | H:i' %}</p>
-
                     </div>
                 </div>
             </div>
