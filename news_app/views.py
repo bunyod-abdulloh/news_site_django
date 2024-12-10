@@ -1,7 +1,8 @@
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, UpdateView, DeleteView
+from django.utils.text import slugify
+from django.views.generic import TemplateView, ListView, UpdateView, DeleteView, CreateView
 
 from .models import Category, News
 from .forms import ContactForm
@@ -115,11 +116,29 @@ class NewsUpdateView(UpdateView):
     model = News
     fields = ('title', 'body', 'image', 'category', 'status',)
     template_name = 'crud/news_edit.html'
-    slug_field = 'slug'  # Slug ustuni nomi
-    slug_url_kwarg = 'slug'  # URL'dan olinadigan parametr
+    # slug_field = 'slug'  # Slug ustuni nomi
+    # slug_url_kwarg = 'slug'  # URL'dan olinadigan parametr
 
 
 class NewsDeleteView(DeleteView):
     model = News
     template_name = 'crud/news_delete.html'
     success_url = reverse_lazy('home_page')
+
+
+# class NewsCreateView(CreateView):
+#     model = News
+#     template_name = 'crud/news_create.html'
+#     fields = ('title', 'slug', 'image', 'category', 'body', 'status', )
+
+class NewsCreateView(CreateView):
+    model = News
+    template_name = 'crud/news_create.html'
+    fields = ('title', 'slug', 'image', 'category', 'body', 'status',)
+    success_url = reverse_lazy('news_list')  # Yaratilgandan so'ng qaytariladigan sahifa
+
+    def form_valid(self, form):
+        # Agar `slug` bo'sh bo'lsa, avtomatik yaratiladi
+        if not form.instance.slug:
+            form.instance.slug = slugify(form.instance.title)
+        return super().form_valid(form)

@@ -97,7 +97,7 @@
                     <ul id="ticker01" class="news_sticker">
                         {% for news in latest_news %}
                         <li>
-                            <a href="{{ news.get_absolute_url }}"><img src="{{ news.image }} " alt="">
+                            <a href="{{ news.get_absolute_url }}"><img src="{{ news.image.url }} " alt="">
                                 {{ news.title }}</a>
                         </li>
                         {% endfor %}

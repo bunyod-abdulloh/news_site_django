@@ -19,6 +19,7 @@
                             {{ news.title | truncatewords:5 }}</a></h2>
                         <p>{{ news.title }}</p>
                     </div>
+                    <p>{{news.image}}</p>
                 </div>
                 {% endfor %}
             </div>
@@ -34,8 +35,9 @@
                             <div class="media"><a href="{{ news.get_absolute_url }}" class="media-left"> <img
                                     alt="" src="{{ news.image }}">
                             </a>
-                                <div class="media-body"><a href="{{ news.get_absolute_url }}"
-                                                           class="catg_title"> {{ news.title }}</a></div>
+                                <div class="media-body">
+                                    <a href="{{ news.get_absolute_url }}"
+                                       class="catg_title"> {{ news.title }}</a></div>
                             </div>
                         </li>
                         {% endfor %}
