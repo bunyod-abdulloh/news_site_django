@@ -1,0 +1,13 @@
+{% extends 'news/base.html' %}
+{% load static %}
+{% block title %} Muvaffaqqiyatli ro'yxatdan o'tdingiz!' {% endblock title %}
+{% block content %}
+
+<h1>
+    {{ new_user.first_name }} tabriklaymiz, Siz ro'yxatdan o'tdingiz!
+</h1>
+<p>Siz muvaffaqiyatli ro'yxatdan o'tdingiz!</p>
+<p>Endi saytga <a href="{% url 'login' %}">login</a> qilishingiz mumkin!</p>
+
+{% endblock content %}
+
