@@ -3,7 +3,8 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views.generic import TemplateView, ListView, UpdateView, DeleteView, CreateView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .custom_permissions import OnlyLoggedSuperUser
 from .models import Category, News
 from .forms import ContactForm
 
@@ -112,7 +113,7 @@ class SportNewsView(ListView):
         return news
 
 
-class NewsUpdateView(UpdateView):
+class NewsUpdateView(OnlyLoggedSuperUser, UpdateView):
     model = News
     fields = ('title', 'body', 'image', 'category', 'status',)
     template_name = 'crud/news_edit.html'
@@ -120,7 +121,7 @@ class NewsUpdateView(UpdateView):
     # slug_url_kwarg = 'slug'  # URL'dan olinadigan parametr
 
 
-class NewsDeleteView(DeleteView):
+class NewsDeleteView(OnlyLoggedSuperUser, DeleteView):
     model = News
     template_name = 'crud/news_delete.html'
     success_url = reverse_lazy('home_page')
@@ -131,7 +132,7 @@ class NewsDeleteView(DeleteView):
 #     template_name = 'crud/news_create.html'
 #     fields = ('title', 'slug', 'image', 'category', 'body', 'status', )
 
-class NewsCreateView(CreateView):
+class NewsCreateView(OnlyLoggedSuperUser, CreateView):
     model = News
     template_name = 'crud/news_create.html'
     fields = ('title', 'slug', 'image', 'category', 'body', 'status',)

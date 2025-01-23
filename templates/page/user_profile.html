@@ -10,10 +10,15 @@
     <h3>Xush kelibsiz, {{ user.username }}</h3>
     <h3 class="mb-4">Sizning ma'lumotlaringiz</h3>
     <form>
-        <div class="row mb-3">
-            <div class="col-md-12">
-                <h1> {{ profile.user }} </h1>
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <img src="{{ profile.photo.url }}" width="50%">
             </div>
+            <div class="col-md-8">
+                <h4>Tug'ilgan yilingiz: {{ profile.date_of_birth }}</h4>
+            </div>
+        </div>
+        <div class="row mb-4">
             <div class="col-md-6">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" id="username" class="form-control custom-input" value="{{ user.username }}"
