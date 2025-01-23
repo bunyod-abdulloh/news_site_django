@@ -1,9 +1,11 @@
-from django.http import Http404, HttpResponse
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views.generic import TemplateView, ListView, UpdateView, DeleteView, CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+
 from .custom_permissions import OnlyLoggedSuperUser
 from .models import Category, News
 from .forms import ContactForm
@@ -143,3 +145,13 @@ class NewsCreateView(OnlyLoggedSuperUser, CreateView):
         if not form.instance.slug:
             form.instance.slug = slugify(form.instance.title)
         return super().form_valid(form)
+
+
+@login_required
+@user_passes_test(lambda user: user.is_superuser)
+def admin_page_view(request):
+    admin_users = User.objects.filter(is_superuser=True)
+    context = {
+        "admin_users": admin_users
+    }
+    return render(request, 'pages/admin_page.html', context)
