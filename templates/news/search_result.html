@@ -1,0 +1,32 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %} Qidiruv natijalari {% endblock title %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center" style="margin-bottom:20px;">Qidiruv natijalari</h2>
+
+    {% for yangilik in barcha_yangiliklar %}
+    <div class="card mb-4 shadow-sm">
+        <div class="row g-0">
+            <div class="col-md-6">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'news_detail_page' yangilik.slug %}" class="text-decoration-none text-dark">
+                            {{ yangilik.title }}</a>
+                    </h5>
+                    <p class="card-text">{{ yangilik.body | truncatewords:30 }}</p>
+                    <a href="{% url 'news_detail_page' yangilik.slug %}" class="btn btn-primary btn-sm">Batafsil</a>
+                </div>
+            </div>
+            <!-- Yangilik rasmi -->
+            <div class="col-md-4">
+                <img src="{{ yangilik.image.url }}" class="img-fluid rounded-start" alt="Yangilik rasmi"
+                     style="max-height: 200px; object-fit: cover; margin-bottom: 10px;">
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

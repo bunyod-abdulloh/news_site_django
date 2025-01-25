@@ -2,17 +2,78 @@
 
 {% load static %}
 
-{% block title %} {{ news.title }} {% endblock title %}
+{% block title %}{{ news.title }}{% endblock title %}
 
 {% block content %}
-<h2>{{ news.title }}</h2>
-<h5>{{ news.publish_time }}</h5>
-<img src="{{ news.image.url }}">
-<p>{{ news.body }}</p>
-<div class="card-footer text-center">
+<div class="container my-5">
+    <!-- Yangilik sarlavhasi -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold display-4">{{ news.title }}</h2>
+        <h5 class="text-muted">{{ news.publish_time }}</h5>
+    </div>
+
+    <!-- Rasm qismi -->
+    {% if news.image %}
+    <div class="text-center mb-5">
+        <img src="{{ news.image.url }}" alt="Yangilik rasmi" class="img-fluid rounded shadow-lg">
+    </div>
+    {% endif %}
+
+    <!-- Matn qismi -->
+    <div class="mb-5">
+        <p class="fs-4 text-justify">{{ news.body }}</p>
+    </div>
+
+    <!-- Superuser funksiyalari -->
     {% if request.user.is_authenticated and request.user.is_superuser %}
-    <a href="{% url 'news_edit_page' news.slug %}">Tahrirlash | </a>
-    <a href="{% url 'news_delete_page' news.slug %}">O'chirish</a>
+    <div class="d-flex justify-content-center gap-3 mb-4">
+        <a href="{% url 'news_edit_page' news.slug %}" class="btn btn-warning btn-sm rounded-pill">
+            <i class="bi bi-pencil-square"></i> Tahrirlash
+        </a>
+        <a href="{% url 'news_delete_page' news.slug %}" class="btn btn-danger btn-sm rounded-pill">
+            <i class="bi bi-trash-fill"></i> O'chirish
+        </a>
+    </div>
+    {% endif %}
+
+    <!-- Kommentariyalar bo'limi -->
+    <div class="card shadow-lg border-0 rounded-4 mb-5">
+        <div class="card-header bg-primary text-white text-center py-3">
+            <h5 class="mb-0">Fikr-mulohazalar</h5>
+        </div>
+        <div class="card-body">
+            {% for comment in comments %}
+            <div class="mb-4 border-bottom pb-3">
+                <p class="mb-1">
+                    <strong class="text-primary">{{ comment.user }}</strong>
+                    <span class="text-muted small">{{ comment.created_time }}</span>
+                </p>
+                <p class="mb-0">{{ comment.body | linebreaks }}</p>
+            </div>
+            {% empty %}
+            <p class="text-muted text-center">Hozircha fikr-mulohaza yo'q.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Izoh qoldirish bo'limi -->
+    {% if user.is_authenticated %}
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h3 class="mb-4">Izoh qoldirish</h3>
+            <form method="POST">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit" class="btn btn-primary btn-sm">Yuborish</button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-warning text-center mb-4">
+        <p class="mb-2">Faqat ro'yxatdan o'tgan yoki saytga kirgan foydalanuvchilar izoh qoldirishlari mumkin!</p>
+        <a href="{% url 'user_register' %}" class="btn btn-success btn-sm">Ro'yxatdan o'tish</a>
+        <a href="{% url 'login' %}" class="btn btn-info btn-sm">Kirish</a>
+    </div>
     {% endif %}
 </div>
 {% endblock content %}

@@ -1,18 +1,55 @@
 {% extends 'news/base.html' %}
-{% load static %}
+{% load widget_tweaks %}
 
-{% block title %} Login sahifasi {% endblock title %}
+{% block title %}Login sahifasi{% endblock title %}
 
 {% block content %}
-
-<h2> Web saytga kirish - login </h2>
-<p> Iltimos, saytga kirish uchun quyidagi formani to'ldiring: </p>
-<h5><a href="{% url 'password_reset' %}">Parolni tiklash</a></h5>
-<form method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
-<h4>Agar foydanaluvchi sifatida ro'yxatdan o'tmagan bo'lsangiz, quyidagi tugmani bosib ro'yxatdan o'tishingiz
-    mumkin!</h4>
-<a href="{% url 'user_register' %}" class="btn btn-primary">Ro'yxatdan o'tish</a>
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0 rounded-4">
+                <!-- Header qismi -->
+                <div class="card-header bg-primary text-white text-center rounded-top">
+                    <h3 class="fw-bold mb-0">Kirish</h3>
+                </div>
+                <!-- Forma qismi -->
+                <div class="card-body p-4">
+                    <p class="text-muted text-center mb-4">
+                        Iltimos, saytga kirish uchun quyidagi formani to‘ldiring:
+                    </p>
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <div class="form-floating mb-3">
+                            {{ form.username|add_class:"form-control" }}
+                            <label for="id_username">Foydalanuvchi nomi</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            {{ form.password|add_class:"form-control" }}
+                            <label for="id_password">Parol</label>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg fw-bold">
+                                Kirish
+                            </button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-4">
+                        <a href="{% url 'password_reset' %}" class="text-decoration-none text-primary fw-bold">
+                            Parolni tiklash
+                        </a>
+                    </div>
+                </div>
+                <!-- Footer qismi -->
+                <div class="card-footer bg-light text-center rounded-bottom">
+                    <h5 class="text-muted mb-3">
+                        Foydalanuvchi sifatida ro'yxatdan o'tmaganmisiz?
+                    </h5>
+                    <a href="{% url 'user_register' %}" class="btn btn-success btn-lg fw-bold w-100">
+                        Ro'yxatdan o'tish
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
