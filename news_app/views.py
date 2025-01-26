@@ -5,7 +5,9 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.text import slugify
-from django.views.generic import TemplateView, ListView, UpdateView, DeleteView, CreateView
+from django.views.generic import TemplateView, ListView, UpdateView, DeleteView, CreateView, DetailView
+from django.views.generic.edit import FormMixin
+from hitcount.utils import get_hitcount_model
 
 from .custom_permissions import OnlyLoggedSuperUser
 from .models import Category, News
@@ -21,8 +23,30 @@ def news_List(request):
     return render(request, 'news/news_list.html', context)
 
 
+from hitcount.views import HitCountDetailView, HitCountMixin
+
+
+class PostCountHitDetailView(HitCountDetailView):
+    model = News  # your model goes here
+    count_hit = True
+
+
 def news_detail(request, news):
     news = get_object_or_404(klass=News, slug=news, status=News.Status.Published)
+    context = {}
+
+    # hitcount logic
+    hit_count = get_hitcount_model().objects.get_for_object(news)
+    hits = hit_count.hits
+    hitcontext = context['hitcount'] = {'pk': hit_count.pk}
+    hit_count_response = HitCountMixin.hit_count(request, hit_count)
+
+    if hit_count_response.hit_counted:
+        hits = hits + 1
+        hitcontext['hit_counted'] = hit_count_response.hit_counted
+        hitcontext['hit_message'] = hit_count_response.hit_message
+        hitcontext['total_count'] = hits
+
     comments = news.comments.filter(active=True)
     new_comment = None
 

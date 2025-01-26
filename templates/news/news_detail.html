@@ -4,19 +4,23 @@
 
 {% load widget_tweaks %}
 
+{% load hitcount_tags %}
+
 {% block title %}{{ news.title }}{% endblock title %}
 
 {% block content %}
 <div class="container my-5">
     <!-- Yangilik sarlavhasi -->
-    <div class="text-center mb-5">
+    <div class="mb-5">
         <h2 class="fw-bold display-4">{{ news.title }}</h2>
-        <h5 class="text-muted">{{ news.publish_time }}</h5>
+        <h5 class="text-muted">{{ news.publish_time }} | Ko'rishlar soni: <i class="fa fa-eye"
+                                                                             aria-hidden="True"></i>
+            {% get_hit_count for news %}</h5>
     </div>
 
     <!-- Rasm qismi -->
     {% if news.image %}
-    <div class="text-center mb-5">
+    <div class="mb-5">
         <img src="{{ news.image.url }}" alt="Yangilik rasmi" class="img-fluid rounded shadow-lg">
     </div>
     {% endif %}

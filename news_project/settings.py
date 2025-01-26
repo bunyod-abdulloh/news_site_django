@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'news_app',
     'accounts',
     'widget_tweaks',
+    'hitcount',
 ]
 
 MIDDLEWARE = [
