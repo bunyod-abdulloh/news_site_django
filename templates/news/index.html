@@ -13,14 +13,14 @@
             <div class="slick_slider">
                 {% for news in news_list %}
                 <div class="single_iteam"><a href="{{ news.get_absolute_url }}"> <img
-                        src="{{ news.image }}"
+                        src="{{ news.image.url }}"
                         alt="Rasm topilmadi!"></a>
                     <div class="slider_article">
                         <h2><a class="slider_tittle" href="{{ news.get_absolute_url }}">
                             {{ news.title | truncatewords:5 }}</a></h2>
                         <p>{{ news.title }}</p>
                     </div>
-                    <p>{{news.image}}</p>
+                    <p>{{ news.image }}</p>
                 </div>
                 {% endfor %}
             </div>
@@ -34,7 +34,7 @@
                         {% for news in news_list %}
                         <li>
                             <div class="media"><a href="{{ news.get_absolute_url }}" class="media-left"> <img
-                                    alt="" src="{{ news.image }}">
+                                    alt="" src="{{ news.image.url }}">
                             </a>
                                 <div class="media-body">
                                     <a href="{{ news.get_absolute_url }}"
@@ -67,7 +67,7 @@
                             <li>
                                 <figure class="bsbig_fig"><a href="{{ local.get_absolute_url }}"
                                                              class="featured_img">
-                                    <img alt="" src="{{ local.image }} "> <span
+                                    <img alt="" src="{{ local.image.url }} "> <span
                                         class="overlay"></span> </a>
                                     <figcaption><a href="{{ local.get_absolute_url }}">
                                         {{ local.title }}</a>
@@ -90,7 +90,7 @@
                             <li>
                                 <div class="media wow fadeInDown"><a href="{{ news.get_absolute_url }}"
                                                                      class="media-left"> <img alt=""
-                                                                                              src="{{ news.image }} ">
+                                                                                              src="{{ news.image.url }} ">
                                 </a>
                                     <div class="media-body"><a href="{{ news.get_absolute_url }}"
                                                                class="catg_title">
@@ -117,7 +117,7 @@
                                 <li>
                                     <figure class="bsbig_fig"><a href="{{ xorijiy.get_absolute_url }}"
                                                                  class="featured_img">
-                                        <img alt="" src="{{ xorijiy.image }} "> <span
+                                        <img alt="" src="{{ xorijiy.image.url }} "> <span
                                             class="overlay"></span>
                                     </a>
                                         <figcaption><a href="{{ xorijiy.get_absolute_url }}">
@@ -139,7 +139,7 @@
                                 <li>
                                     <div class="media wow fadeInDown"><a href="{{ xorijiy.get_absolute_url }}"
                                                                          class="media-left"> <img alt=""
-                                                                                                  src="{{ xorijiy.image }} ">
+                                                                                                  src="{{ xorijiy.image.url }} ">
                                     </a>
                                         <div class="media-body"><a href="{{ xorijiy.get_absolute_url }}"
                                                                    class="catg_title">
@@ -166,7 +166,7 @@
                                     <figure class="bsbig_fig wow fadeInDown"><a
                                             href="{{ tech.get_absolute_url }}"
                                             class="featured_img"> <img alt=""
-                                                                       src="{{ tech.image}} ">
+                                                                       src="{{ tech.image.url}} ">
                                         <span class="overlay"></span> </a>
                                         <figcaption>
                                             <a href="{{ tech.get_absolute_url }}"> {{ tech.title }}</a>
@@ -187,7 +187,7 @@
                                 <li>
                                     <div class="media wow fadeInDown"><a href="{{ tech.get_absolute_url }}"
                                                                          class="media-left">
-                                        <img alt="" src="{{ tech.image }} ">
+                                        <img alt="" src="{{ tech.image.url }} ">
                                     </a>
                                         <div class="media-body"><a href="{{ tech.get_absolute_url }}"
                                                                    class="catg_title">
@@ -274,7 +274,7 @@
                                 <figure class="bsbig_fig  wow fadeInDown">
                                     <a class="featured_img" href="{{ sport.get_absolute_url }}">
                                         <img
-                                                src="{{ sport.image }} " alt="">
+                                                src="{{ sport.image.url }} " alt="">
                                         <span class="overlay"></span> </a>
                                     <figcaption>
                                         <a href="{{ sport.get_absolute_url }}">{{ sport.title }}</a>
@@ -297,7 +297,7 @@
                             <li>
                                 <div class="media wow fadeInDown">
                                     <a href="{{ sport.get_absolute_url }}" class="media-left">
-                                        <img alt="" src="{{ sport.image }} ">
+                                        <img alt="" src="{{ sport.image.url }} ">
                                     </a>
                                     <div class="media-body">
                                         <a href="{{ sport.get_absolute_url }}" class="catg_title">
