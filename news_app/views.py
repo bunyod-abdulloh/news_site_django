@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.text import slugify
@@ -48,6 +48,7 @@ def news_detail(request, news):
         hitcontext['total_count'] = hits
 
     comments = news.comments.filter(active=True)
+    comment_count = comments.count()
     new_comment = None
 
     if request.method == 'POST':
@@ -58,7 +59,7 @@ def news_detail(request, news):
             new_comment.news = news
             new_comment.user = request.user
             new_comment.save()
-            comment_form = CommentForm()
+            return HttpResponseRedirect(request.path_info)  # Redirect to avoid duplicate submissions
 
     else:
         comment_form = CommentForm()
@@ -66,11 +67,11 @@ def news_detail(request, news):
     context = {
         'news': news,
         'comments': comments,
+        'comment_count': comment_count,
         'new_comment': new_comment,
         'comment_form': comment_form
     }
     return render(request, 'news/news_detail.html', context)
-
 
 def homePageView(request):
     news_list = News.published.all().order_by('-publish_time')

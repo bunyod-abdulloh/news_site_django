@@ -15,7 +15,9 @@
         <h2 class="fw-bold display-4">{{ news.title }}</h2>
         <h5 class="text-muted">{{ news.publish_time }} | Ko'rishlar soni: <i class="fa fa-eye"
                                                                              aria-hidden="True"></i>
-            {% get_hit_count for news %}</h5>
+            {% get_hit_count for news %} | Izohlar soni: <i class="fa fa-comment"></i>
+            {{ comment_count }}
+        </h5>
     </div>
 
     <!-- Rasm qismi -->
@@ -48,6 +50,11 @@
             <h5 class="mb-0">Fikr-mulohazalar</h5>
         </div>
         <div class="card-body">
+            {% if comments %}
+            <h5 class="text-muted">
+                Izohlar soni: <i class="fa fa-comment"></i> {{ comment_count }}
+            </h5>
+            {% endif %}
             {% for comment in comments %}
             <div class="mb-4 border-bottom pb-3">
                 <p class="mb-1">
