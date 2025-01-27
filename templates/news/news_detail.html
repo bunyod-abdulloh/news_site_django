@@ -9,6 +9,15 @@
 {% block title %}{{ news.title }}{% endblock title %}
 
 {% block content %}
+
+<style>
+    .custom-img {
+        width: 100%; /* Kenglikni konteynerga moslashtiradi */
+        height: auto; /* Nisbatni saqlab qoladi */
+        max-width: 100%; /* Konteynerdan chiqib ketishni oldini oladi */
+    }
+</style>
+
 <div class="container my-5">
     <!-- Yangilik sarlavhasi -->
     <div class="mb-5">
@@ -23,8 +32,9 @@
     <!-- Rasm qismi -->
     {% if news.image %}
     <div class="mb-5">
-        <img src="{{ news.image.url }}" alt="Yangilik rasmi" class="img-fluid rounded shadow-lg">
+        <img src="{{ news.image.url }}" alt="Yangilik rasmi" class="custom-img rounded shadow-lg">
     </div>
+
     {% endif %}
 
     <!-- Matn qismi -->

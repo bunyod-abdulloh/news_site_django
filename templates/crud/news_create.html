@@ -13,10 +13,16 @@
             <form method="post" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-light">
                 {% csrf_token %}
 
-                <!-- Title field -->
+                <!-- Title fields -->
                 <div class="mb-4">
                     <label for="{{ form.title.id_for_label }}" class="form-label">Title</label>
                     {{ form.title|add_class:"form-control" }}
+                    <label for="{{ form.title_uz.id_for_label }}" class="form-label">Title UZ</label>
+                    {{ form.title_uz|add_class:"form-control" }}
+                    <label for="{{ form.title_en.id_for_label }}" class="form-label">Title EN</label>
+                    {{ form.title_en|add_class:"form-control" }}
+                    <label for="{{ form.title_ru.id_for_label }}" class="form-label">Title RU</label>
+                    {{ form.title_ru|add_class:"form-control" }}
                     {% if form.title.errors %}
                     <div class="text-danger">
                         {% for error in form.title.errors %}
@@ -39,10 +45,16 @@
                     {% endif %}
                 </div>
 
-                <!-- Body field -->
+                <!-- Body fields -->
                 <div class="mb-4">
                     <label for="{{ form.body.id_for_label }}" class="form-label">Body</label>
                     {{ form.body|add_class:"form-control" }}
+                    <label for="{{ form.body_uz.id_for_label }}" class="form-label">Body UZ</label>
+                    {{ form.body_uz|add_class:"form-control" }}
+                    <label for="{{ form.body_en.id_for_label }}" class="form-label">Body EN</label>
+                    {{ form.body_en|add_class:"form-control" }}
+                    <label for="{{ form.body_ru.id_for_label }}" class="form-label">Body RU</label>
+                    {{ form.body_ru|add_class:"form-control" }}
                     {% if form.body.errors %}
                     <div class="text-danger">
                         {% for error in form.body.errors %}
@@ -52,13 +64,39 @@
                     {% endif %}
                 </div>
 
-                <!-- Other fields like image (optional) -->
+                <!-- Category field -->
+                <div class="mb-4">
+                    <label for="{{ form.category.id_for_label }}" class="form-label">Category</label>
+                    {{ form.category|add_class:"form-select" }}
+                    {% if form.category.errors %}
+                    <div class="text-danger">
+                        {% for error in form.category.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Status field -->
+                <div class="mb-4">
+                    <label for="{{ form.status.id_for_label }}" class="form-label">Status</label>
+                    {{ form.status|add_class:"form-select" }}
+                    {% if form.status.errors %}
+                    <div class="text-danger">
+                        {% for error in form.status.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Image field -->
                 <div class="mb-4">
                     <label for="{{ form.image.id_for_label }}" class="form-label">Image</label>
                     {{ form.image|add_class:"form-control" }}
                 </div>
 
-                <!-- Submit button with full width -->
+                <!-- Submit button -->
                 <div class="text-center" style="margin: 10px 0 10px;">
                     <button type="submit" class="btn btn-primary btn-block px-4 py-2">Tasdiqlash</button>
                 </div>

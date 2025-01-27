@@ -73,6 +73,7 @@ def news_detail(request, news):
     }
     return render(request, 'news/news_detail.html', context)
 
+
 def homePageView(request):
     news_list = News.published.all().order_by('-publish_time')
     categories = Category.objects.all()
@@ -174,16 +175,13 @@ class NewsDeleteView(OnlyLoggedSuperUser, DeleteView):
     success_url = reverse_lazy('home_page')
 
 
-# class NewsCreateView(CreateView):
-#     model = News
-#     template_name = 'crud/news_create.html'
-#     fields = ('title', 'slug', 'image', 'category', 'body', 'status', )
-
 class NewsCreateView(OnlyLoggedSuperUser, CreateView):
     model = News
     template_name = 'crud/news_create.html'
-    fields = ('title', 'slug', 'image', 'category', 'body', 'status',)
-    success_url = reverse_lazy('news_list')  # Yaratilgandan so'ng qaytariladigan sahifa
+    fields = (
+        'title', 'title_uz', 'title_en', 'title_ru', 'slug', 'body', 'body_uz', 'body_en',
+        'body_ru', 'image', 'category', 'status',)
+    success_url = reverse_lazy('home_page')  # Yaratilgandan so'ng qaytariladigan sahifa
 
     def form_valid(self, form):
         # Agar `slug` bo'sh bo'lsa, avtomatik yaratiladi

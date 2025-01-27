@@ -22,6 +22,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class ContactAdmin(admin.ModelAdmin):
     list_display = ['email', 'name']
 
+
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ['user', 'body', 'created_time', 'active']
@@ -34,6 +35,5 @@ class CommentAdmin(admin.ModelAdmin):
 
     def activate_comments(self, request, queryset):
         queryset.update(active=True)
-
 
 # admin.site.register(Comment, CommentAdmin)
