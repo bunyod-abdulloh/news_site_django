@@ -15,9 +15,9 @@
         <div class="col-lg-8 col-md-8 col-sm-8">
             <div class="slick_slider">
                 {% for news in news_list %}
-                <div class="single_iteam"><a href="{{ news.get_absolute_url }}"> <img
-                        src="{{ news.image.url }}"
-                        alt="Rasm topilmadi!"></a>
+                <div class="single_iteam"><a href="{{ news.get_absolute_url }}">
+                    <img src="{{ news.image.url }}" alt="Rasm topilmadi!">
+                </a>
                     <div class="slider_article">
                         <h2><a class="slider_tittle" href="{{ news.get_absolute_url }}">
                             {{ news.title | truncatewords:5 }}</a></h2>
@@ -80,7 +80,7 @@
                                         {{ local.title }}</a>
                                         <h6 class="text-muted">
                                             {% blocktrans %}Ko'rishlar soni{% endblocktrans %}: <i class="fa fa-eye"
-                                                                                                      aria-hidden="True"></i>
+                                                                                                   aria-hidden="True"></i>
                                             {% get_hit_count for local %}
                                         </h6>
                                     </figcaption>

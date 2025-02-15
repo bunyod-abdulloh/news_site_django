@@ -19,7 +19,6 @@ def news_List(request):
     context = {
         'news_list': news,
     }
-
     return render(request, 'news/news_list.html', context)
 
 
@@ -97,7 +96,7 @@ class HomePageView(ListView):
         context['xorijiy_news'] = News.published.all().filter(category__name="Xorijiy").order_by('-publish_time')[:5]
         context['sports_news'] = News.published.all().filter(category__name="Sport").order_by('-publish_time')[:5]
         context['techno_news'] = News.published.all().filter(category__name="Texnologiya").order_by('-publish_time')[:5]
-
+        print(context['news_list'])
         return context
 
 
